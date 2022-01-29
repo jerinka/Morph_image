@@ -1,4 +1,4 @@
-# Image_morphing
+# Morph_image
 Morphing fg_image and puting on top of bg_image by Delaunay triangulation and warping triangles of fg_points onto bg_points.
 
 # Insipered by
