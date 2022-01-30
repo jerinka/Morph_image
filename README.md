@@ -1,6 +1,6 @@
 # Morph_image
 
-![Pipeline](https://github.com/jerinka/Morph_image/blob/main/.github/workflows/main/badge.svg?branch=main)
+![Pipeline](https://github.com/jerinka/Morph_image/actions/workflows/main/badge.svg?branch=main)
 
 Morphing fg_image and puting on top of bg_image by Delaunay triangulation and warping triangles of fg_points onto bg_points.
 
