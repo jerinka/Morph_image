@@ -1,23 +1,25 @@
 import cv2
 import numpy as np
-import threading 
+import multiprocessing as mp
+from multiprocessing import Queue, Event
 import time
 import os
 
-class MousePtsThread(threading.Thread):
 
-    def __init__(self, img, pts=[],win='MouseCallback'):
+class MousePtsThread(mp.Process):
+    def __init__(self, img,pts=[], win='MouseCallback',pts_name='pts.npy'):
         super().__init__()
-        self._stop_event = threading.Event()
-
+        self._stop_event = Event()
         self.img = img
+        self.pts_name = pts_name
 
         if not len(pts): #if pts are not given, try to load from npy
-            if os.path.isfile('pts.npy'):
-                pts = np.load('pts.npy').tolist()
+            if os.path.isfile(self.pts_name):
+                pts = np.load(self.pts_name).tolist()
             else:
                 pts =[]
         self.pts=pts
+        self.q = Queue(maxsize=1)
 
         # Create a black image and a window
         self.windowName = win
@@ -39,14 +41,14 @@ class MousePtsThread(threading.Thread):
                 self.mouse_state = "RBUTTONDOWN"
                 self.mouse_down  = True
                 self.new_mouse_down = True
-                self.pt = [x,y]
+                self.pt = (x,y)
                 print('mouse down')
                 
         elif event == cv2.EVENT_MOUSEMOVE:
             if self.mouse_down  == True:
                 self.mouse_state = "MOUSEMOVE"
                 self.mouse_move  = True
-                self.pt = [x,y]
+                self.pt = (x,y)
 
         elif event == cv2.EVENT_RBUTTONUP:
             self.mouse_state = "RBUTTONUP"
@@ -61,9 +63,15 @@ class MousePtsThread(threading.Thread):
     def join(self):
         self.stop()
         super().join()
+    
+    def get_pts(self):
+        if not self.q.empty():
+            self.out_pts = self.q.get()
+            print('self.out_pts:',self.out_pts)
+        return self.out_pts
 
     def run(self):
-        print('Thread started')
+        print('Process started')
         cv2.namedWindow(self.windowName, cv2.WINDOW_GUI_NORMAL)
         cv2.setMouseCallback(self.windowName, self.CallBackFunc)
         
@@ -105,17 +113,25 @@ class MousePtsThread(threading.Thread):
             cv2.imshow(self.windowName, img)
             if cv2.waitKey(20) == 27:
                 cv2.destroyWindow(self.windowName)
-                np.save('pts.npy',self.pts)
+                np.save(self.pts_name, self.pts)
+                if not self.q.empty():
+                    self.q.get()
+                self.q.put(self.pts)
+                np.save(self.pts_name, self.pts)
                 break
+
         print("thread stopped!")
 
 def main():
     img = cv2.imread('bradley_cooper.jpg')
     mouseobj = MousePtsThread(img)
+    mouseobj.start()
     
     while True:
         # Mian thread logic can goes here
         time.sleep(1)
+        pts = mouseobj.get_pts()
+        print('Main pts:',pts)
         if not(mouseobj.is_alive()):
             break
         
@@ -124,7 +140,7 @@ def main():
         mouseobj.stop() 
     mouseobj.join()
     print("main stopped!")
-    print('Final pts:',mouseobj.pts)
+    print('Final pts:',pts)
 
     #import pdb;pdb.set_trace()
 

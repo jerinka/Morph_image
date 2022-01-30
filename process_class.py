@@ -9,6 +9,7 @@ class Worker(mp.Process):
         self.img = img
         mp.Process.__init__(self)
         self.q = q
+        
         self.count=0
 
     def run(self):

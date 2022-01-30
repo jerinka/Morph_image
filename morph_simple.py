@@ -3,6 +3,7 @@
 import cv2
 import numpy as np
 import time
+
 def get_triangulation_indices(points):
     """Get indices triples for every triangle
     """
@@ -73,32 +74,26 @@ if __name__ == "__main__":
     # Inputs
     src_img = cv2.imread("bradley_cooper.jpg")
     dst_img = cv2.imread("jim_carrey.jpg")
-    mouseobj1 = MousePtsThread(src_img,win='src')
+    
+    mouseobj1 = MousePtsThread(src_img,win='src',pts_name='pts1.npy')
+    mouseobj2 = MousePtsThread(dst_img,win='dst',pts_name='pts2.npy')
     mouseobj1.start()
-    #mouseobj2 = MousePtsThread(dst_img,win='dst')
+    mouseobj2.start()
 
     while True:
         # Mian thread logic can goes here
         time.sleep(1)
-        if not(mouseobj1.is_alive() ):#or mouseobj1.is_alive()):
+        if not(mouseobj1.is_alive()  or mouseobj1.is_alive()):
             break
-    #import pdb;pdb.set_trace()
 
     mouseobj1.join()
-    src_points = mouseobj1.pts
-    print('Final src pts:',mouseobj1.pts)
-
-    mouseobj2 = MousePtsThread(src_img,win='dst')
-    mouseobj2.start()
-    while True:
-        # Mian thread logic can goes here
-        time.sleep(1)
-        if not(mouseobj2.is_alive() ):#or mouseobj1.is_alive()):
-            break
-
     mouseobj2.join()
-    dst_points = mouseobj2.pts
-    print('Final dst pts:',mouseobj2.pts)
+    src_points = mouseobj1.get_pts()
+    dst_points = mouseobj2.get_pts()
+    print('Final src pts:',src_points)
+    print('Final dst pts:',dst_points)
+    #import pdb;pdb.set_trace()
+
 
     # # Landmark detector
     # landmark_obj = FaceLandMarkPts()
