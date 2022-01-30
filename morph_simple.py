@@ -2,7 +2,7 @@
 
 import cv2
 import numpy as np
-
+import time
 def get_triangulation_indices(points):
     """Get indices triples for every triangle
     """
@@ -68,21 +68,42 @@ def transform(src_img, src_points, dst_img, dst_points):
         dst_img_cropped+=dst_img_warped*mask
 
 if __name__ == "__main__":
-    from face_landmarks import FaceLandMarkPts
+    from mouse_pts import MousePtsThread
     
     # Inputs
     src_img = cv2.imread("bradley_cooper.jpg")
     dst_img = cv2.imread("jim_carrey.jpg")
-    src_points = np.array([(40, 27), (38, 65), (47, 115), (66, 147), (107, 166), (147, 150), (172, 118), (177, 75), (173, 26), (63, 19), (89, 30), (128, 34), (152, 27), (75, 46), (142, 46), (109, 48), (95, 96), (107, 91), (120, 97), (84, 123), (106, 117), (132, 121), (97, 137), (107, 139), (120, 135)])
-    dst_points = np.array([(2, 16), (0, 60), (2, 143), (47, 181), (121, 178), (208, 181), (244, 133), (241, 87), (241, 18), (41, 15), (73, 20), (174, 16), (218, 16), (56, 23), (191, 23), (120, 48), (94, 128), (120, 122), (150, 124), (83, 174), (122, 164), (159, 173), (110, 174), (121, 174), (137, 175)])
+    mouseobj1 = MousePtsThread(src_img,win='src')
+    mouseobj1.start()
+    #mouseobj2 = MousePtsThread(dst_img,win='dst')
 
-    # Landmark detector
-    landmark_obj = FaceLandMarkPts()
-    src_points = landmark_obj.get_landmark_pts(src_img)
-    dst_points = landmark_obj.get_landmark_pts(dst_img)
+    while True:
+        # Mian thread logic can goes here
+        time.sleep(1)
+        if not(mouseobj1.is_alive() ):#or mouseobj1.is_alive()):
+            break
+    #import pdb;pdb.set_trace()
 
-    #src_points = np.array(src_points, np.int32)
-    #dst_points = np.array(dst_points, np.int32)
+    mouseobj1.join()
+    src_points = mouseobj1.pts
+    print('Final src pts:',mouseobj1.pts)
+
+    mouseobj2 = MousePtsThread(src_img,win='dst')
+    mouseobj2.start()
+    while True:
+        # Mian thread logic can goes here
+        time.sleep(1)
+        if not(mouseobj2.is_alive() ):#or mouseobj1.is_alive()):
+            break
+
+    mouseobj2.join()
+    dst_points = mouseobj2.pts
+    print('Final dst pts:',mouseobj2.pts)
+
+    # # Landmark detector
+    # landmark_obj = FaceLandMarkPts()
+    # src_points = landmark_obj.get_landmark_pts(src_img)
+    # dst_points = landmark_obj.get_landmark_pts(dst_img)
 
     # Apply transformation
     transform(src_img, src_points, dst_img, dst_points)

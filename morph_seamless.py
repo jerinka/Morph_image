@@ -7,7 +7,7 @@ def show(img, win='img', time=30):
     cv2.imshow(win, img)
     cv2.waitKey(time)
 
-def morph(fg_img, fg_pts,bg_img, bg_pts):
+def morph(bg_img, bg_pts, fg_img, fg_pts):
     """crop fg_img using fg_pts, moprh and place it on bg_img"""
     img1 = fg_img
     img2 = bg_img
@@ -153,7 +153,7 @@ if __name__=="__main__":
     landmarks_points1 = landmark_obj.get_landmark_pts(img1)
     landmarks_points2 = landmark_obj.get_landmark_pts(img2)
 
-    seamlessclone = morph(fg_img=img1, fg_pts=landmarks_points1,bg_img=img2, bg_pts=landmarks_points2)
+    seamlessclone = morph(bg_img=img2, bg_pts=landmarks_points2, fg_img=img1, fg_pts=landmarks_points1)
 
     cv2.imshow("seamlessclone", seamlessclone)
     cv2.waitKey(0)
