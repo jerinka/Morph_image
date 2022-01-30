@@ -1,7 +1,7 @@
 # Morph_image
 Morphing fg_image and puting on top of bg_image by Delaunay triangulation and warping triangles of fg_points onto bg_points.
 
-![Pipeline](https://github.com/jerinka/Morph_image/workflows/main/badge.svg)
+[![CI](https://github.com/jerinka/Morph_image/actions/workflows/main.yml/badge.svg)](https://github.com/jerinka/Morph_image/actions/workflows/main.yml)
 
 
 # Manual keypoint selection (generic)
