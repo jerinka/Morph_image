@@ -5,6 +5,7 @@ Morphing fg_image and puting on top of bg_image by Delaunay triangulation and wa
 
 ## Clone
 ```git clone https://github.com/jerinka/Morph_image```\
+```cd Morph_image```\
 ```git config credential.helper store```
 
 # Manual keypoint selection (generic)
@@ -18,6 +19,7 @@ Click on points in source image and destination image in same order. May drag an
 
 # Automatic keypoint selection (only for face)
 ```python3 morph_seamless.py```
+
 ![Seamless](images/seamless.png)
 
 
