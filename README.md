@@ -1,11 +1,8 @@
 # Morph_image
-
-![Pipeline](https://github.com/jerinka/Morph_image/actions/workflows/main/badge.svg?branch=main)
-
 Morphing fg_image and puting on top of bg_image by Delaunay triangulation and warping triangles of fg_points onto bg_points.
 
-# Insipered by
-https://pysource.com/2019/05/28/face-swapping-explained-in-8-steps-opencv-with-python/
+![Pipeline](https://github.com/jerinka/Morph_image/workflows/main/badge.svg?branch=main)
+
 
 # Manual keypoint selection (generic)
 ```python3 morph_simple.py```
@@ -20,3 +17,9 @@ Click on points in source image and destination image in same order. May drag an
 ```python3 morph_seamless.py```
 ![Seamless](images/seamless.png)
 
+
+# References
+
+https://pysource.com/2019/05/28/face-swapping-explained-in-8-steps-opencv-with-python/
+
+https://towardsdatascience.com/github-actions-makes-one-click-to-deploy-feasible-for-ml-ci-cd-pipeline-61470ed3edbc
