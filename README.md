@@ -3,6 +3,9 @@ Morphing fg_image and puting on top of bg_image by Delaunay triangulation and wa
 
 [![CI](https://github.com/jerinka/Morph_image/actions/workflows/main.yml/badge.svg)](https://github.com/jerinka/Morph_image/actions/workflows/main.yml)
 
+## Clone
+```git clone https://github.com/jerinka/Morph_image```\
+```git config credential.helper store```
 
 # Manual keypoint selection (generic)
 ```python3 morph_simple.py```
