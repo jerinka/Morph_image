@@ -25,8 +25,8 @@ class Worker(mp.Process):
         print("Stopping thread process")
 
 if __name__=='__main__':
-    img1 = cv2.imread("bradley_cooper.jpg")
-    img2 = cv2.imread("jim_carrey.jpg")
+    img1 = cv2.imread("images/bradley_cooper.jpg")
+    img2 = cv2.imread("images/jim_carrey.jpg")
     q1 = Queue(maxsize=1)
     q2 = Queue(maxsize=1)
     p1 = Worker(img1, q1)

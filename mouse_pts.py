@@ -123,7 +123,7 @@ class MousePtsThread(mp.Process):
         print("thread stopped!")
 
 def main():
-    img = cv2.imread('bradley_cooper.jpg')
+    img = cv2.imread('images/bradley_cooper.jpg')
     mouseobj = MousePtsThread(img)
     mouseobj.start()
     

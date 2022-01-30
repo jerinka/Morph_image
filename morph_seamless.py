@@ -139,10 +139,10 @@ def morph(bg_img, bg_pts, fg_img, fg_pts):
 if __name__=="__main__":
     from face_landmarks import FaceLandMarkPts
     
-    img1 = cv2.imread("bradley_cooper.jpg")
+    img1 = cv2.imread("images/bradley_cooper.jpg")
     img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
     mask = np.zeros_like(img1_gray)
-    img2 = cv2.imread("jim_carrey.jpg")
+    img2 = cv2.imread("images/jim_carrey.jpg")
     img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
     show(img1, win='img1', time=30)

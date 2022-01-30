@@ -11,7 +11,7 @@ def f(img,q):
 
 
 if __name__ == '__main__':
-    img = cv2.imread("bradley_cooper.jpg")
+    img = cv2.imread("images/bradley_cooper.jpg")
     q = Queue()
     p = Process(target=f, args=(img,q,))
     p2 = Process(target=f, args=(img,q,))

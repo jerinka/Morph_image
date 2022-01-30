@@ -72,8 +72,8 @@ if __name__ == "__main__":
     from mouse_pts import MousePtsThread
     
     # Inputs
-    src_img = cv2.imread("bradley_cooper.jpg")
-    dst_img = cv2.imread("jim_carrey.jpg")
+    src_img = cv2.imread("images/bradley_cooper.jpg")
+    dst_img = cv2.imread("images/jim_carrey.jpg")
     
     mouseobj1 = MousePtsThread(src_img,win='src',pts_name='pts1.npy')
     mouseobj2 = MousePtsThread(dst_img,win='dst',pts_name='pts2.npy')

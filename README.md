@@ -9,11 +9,11 @@ https://pysource.com/2019/05/28/face-swapping-explained-in-8-steps-opencv-with-p
 
 Click on points in source image and destination image in same order. May drag and adjust blue rects. Press ESC to quit adding points in each window. Press ESC to quit result window.
 
-![Keypoints marked](marking.png)
+![Keypoints marked](images/marking.png)
 
-![Morphed Image](morphed.png)
+![Morphed Image](images/morphed.png)
 
 # Automatic keypoint selection (only for face)
 ```python3 morph_seamless.py```
-![Seamless](seamless.png)
+![Seamless](images/seamless.png)
 
